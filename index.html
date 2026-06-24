@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Glitchy maghale</title>
   <style>
     * {
@@ -10,6 +10,7 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -19,7 +20,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 15px;
+      position: relative;
     }
 
     .container {
@@ -27,13 +29,15 @@
       width: 100%;
       background: #141414;
       border-radius: 24px;
-      padding: 30px;
+      padding: 25px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
       border: 1px solid #2a2a2a;
       min-height: 500px;
+      position: relative;
+      z-index: 10;
     }
 
-    h2, h3 {
+    h2, h3, h4 {
       color: #f5f5f5;
       font-weight: 500;
     }
@@ -42,7 +46,6 @@
       font-size: 2rem;
       color: #ff8c00;
       text-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
-      letter-spacing: 1px;
       border-bottom: 2px solid #2a2a2a;
       padding-bottom: 15px;
       margin-bottom: 20px;
@@ -54,10 +57,12 @@
     .glitchy-title span {
       font-size: 1.5rem;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .form-group {
       margin-bottom: 20px;
+      position: relative;
     }
 
     label {
@@ -79,6 +84,9 @@
       color: #fff;
       font-size: 1rem;
       transition: all 0.2s;
+      display: block;
+      position: relative;
+      z-index: 5;
     }
 
     input:focus,
@@ -93,41 +101,54 @@
       resize: vertical;
     }
 
+    /* استایل دکمه‌ها با تضمین ۱۰۰٪ قابلیت لمس روی موبایل */
     .btn {
       background: #2a2a2a;
       border: none;
-      padding: 12px 28px;
+      padding: 15px 28px;
       border-radius: 30px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.05rem;
       cursor: pointer;
       transition: all 0.2s;
       color: #eee;
+      display: block;
+      width: 100%;
+      text-align: center;
+      user-select: none;
+      position: relative !important;
+      z-index: 99999 !important;
+      pointer-events: auto !important;
     }
 
     .btn-primary {
-      background: #ff8c00;
-      color: #0b0b0b;
+      background: #ff8c00 !important;
+      color: #0b0b0b !important;
     }
-    .btn-primary:hover {
-      background: #e67e00;
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+
+    .btn-link {
+      background: none !important;
+      border: none !important;
+      color: #ff8c00 !important;
+      text-decoration: underline;
+      display: inline-block !important;
+      width: auto !important;
+      padding: 10px 15px !important;
+      font-size: 1.05rem !important;
+      cursor: pointer !important;
+      position: relative !important;
+      z-index: 99999 !important;
+      pointer-events: auto !important;
     }
 
     .btn-danger {
-      background: #c0392b;
-      color: white;
-    }
-    .btn-danger:hover {
-      background: #e74c3c;
-    }
-
-    .flex-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      align-items: center;
+      background: #c0392b !important;
+      color: white !important;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      border-radius: 8px;
+      width: auto;
+      display: inline-block;
     }
 
     .card-grid {
@@ -140,7 +161,7 @@
     .cat-card {
       background: #1c1c1c;
       border-radius: 20px;
-      padding: 30px 15px;
+      padding: 35px 15px;
       text-align: center;
       border: 1px solid #2a2a2a;
       cursor: pointer;
@@ -153,8 +174,6 @@
     .cat-card:hover {
       background: #282828;
       border-color: #ff8c00;
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
 
     .hidden {
@@ -168,6 +187,8 @@
       padding: 25px;
       border-radius: 20px;
       border: 1px solid #2a2a2a;
+      position: relative;
+      z-index: 20;
     }
 
     .auth-box h2 {
@@ -177,19 +198,15 @@
     }
 
     .auth-box .btn {
-      width: 100%;
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .auth-toggle {
       text-align: center;
-      margin-top: 15px;
+      margin-top: 25px;
       color: #888;
-    }
-    .auth-toggle a {
-      color: #ff8c00;
-      cursor: pointer;
-      text-decoration: underline;
+      position: relative;
+      z-index: 30;
     }
 
     .admin-dots {
@@ -202,10 +219,6 @@
       position: relative;
     }
 
-    .admin-dots:hover {
-      color: #ff8c00;
-    }
-
     .dropdown-menu {
       position: absolute;
       top: 45px;
@@ -216,14 +229,13 @@
       padding: 10px 0;
       min-width: 200px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-      z-index: 100;
+      z-index: 100000;
     }
 
     .dropdown-menu div {
       padding: 12px 22px;
       cursor: pointer;
       color: #ddd;
-      transition: 0.1s;
     }
     .dropdown-menu div:hover {
       background: #2a2a2a;
@@ -245,24 +257,76 @@
       border: 1px solid #2a2a2a;
     }
 
-    .article-preview {
+    .article-card {
       background: #181818;
       border-radius: 16px;
-      padding: 25px;
+      padding: 20px;
       margin-top: 20px;
       border: 1px solid #2a2a2a;
+      cursor: pointer;
     }
-
-    .article-preview img {
+    .article-card img {
       max-width: 100%;
       border-radius: 12px;
-      margin: 15px 0;
+      margin: 12px 0;
     }
 
-    .article-meta {
-      color: #ff8c00;
+    .article-meta-box {
+      display: flex;
+      gap: 15px;
+      color: #888;
       font-size: 0.85rem;
-      margin-top: 15px;
+      margin-top: 10px;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .single-article {
+      background: #161616;
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid #2a2a2a;
+    }
+    .main-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ccc;
+      margin: 25px 0;
+      white-space: pre-wrap;
+    }
+    .image-gallery {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .gallery-img {
+      max-height: 200px;
+      max-width: 31%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .comments-section {
+      margin-top: 40px;
+      border-top: 1px solid #2a2a2a;
+      padding-top: 20px;
+    }
+    .comment-item {
+      background: #202020;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border-right: 4px solid #ff8c00;
+    }
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #ff8c00;
     }
 
     .file-input-group {
@@ -277,45 +341,18 @@
       border-radius: 30px;
       cursor: pointer;
       border: 1px solid #3a3a3a;
-      display: inline-block;
-      transition: all 0.2s;
-      font-size: 0.9rem;
-    }
-    .file-input-group label:hover {
-      background: #333;
-      border-color: #ff8c00;
     }
     .file-input-group input[type="file"] {
       display: none;
     }
 
-    .checkbox-group {
+    .checkbox-group, .radio-group {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       margin: 10px 0;
     }
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      color: #ccc;
-    }
-    .checkbox-group input[type="checkbox"],
-    .checkbox-group input[type="radio"] {
-      width: 18px;
-      height: 18px;
-      accent-color: #ff8c00;
-      cursor: pointer;
-    }
-
-    .radio-group {
-      display: flex;
-      gap: 30px;
-      margin: 10px 0;
-    }
-    .radio-group label {
+    .checkbox-group label, .radio-group label {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -327,12 +364,10 @@
       border: none;
       color: #ff8c00;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 20px;
+      width: auto;
       display: inline-block;
-    }
-    .back-btn:hover {
-      text-decoration: underline;
     }
 
     .section-title {
@@ -347,13 +382,14 @@
 
 <div class="container" id="app">
   <div class="glitchy-title">
-    <span>Glitchy maghale</span>
-    <div class="relative" id="adminMenuWrapper">
-      <span class="admin-dots hidden" id="dotsMenu">⋮</span>
+    <span onclick="renderDashboard()" id="siteTitle">Glitchy maghale</span>
+    <div class="relative">
+      <span onclick="toggleDotsMenu(event)" class="admin-dots hidden" id="dotsMenu">⋮</span>
       <div class="dropdown-menu hidden" id="dropdownMenu">
-        <div id="menuUsers">👥 Users</div>
-        <div id="menuCreateArticle">✏️ Create new article</div>
-        <div id="menuLogout">🚪 Logout</div>
+        <div onclick="renderDashboard()">🏠 Home Panel</div>
+        <div onclick="openUsersSection()">👥 Users</div>
+        <div onclick="openCreateArticleSection()">✏️ Create Article</div>
+        <div onclick="handleLogout()">🚪 Logout</div>
       </div>
     </div>
   </div>
@@ -369,8 +405,8 @@
         <label>Password</label>
         <input type="password" id="loginPass" placeholder="رمز عبور">
       </div>
-      <button class="btn btn-primary" id="loginBtn">ورود</button>
-      <div class="auth-toggle">حساب ندارید؟ <a id="goToRegister">ثبت نام کنید</a></div>
+      <button class="btn btn-primary" onclick="handleLogin()" type="button">ورود</button>
+      <div class="auth-toggle">حساب ندارید؟ <button class="btn-link" onclick="document.getElementById('loginForm').classList.add('hidden'); document.getElementById('registerForm').classList.remove('hidden');" type="button">ثبت نام کنید</button></div>
     </div>
 
     <div id="registerForm" class="auth-box hidden">
@@ -382,6 +418,10 @@
       <div class="form-group">
         <label>Password</label>
         <input type="password" id="regPass" placeholder="رمز عبور">
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="regPassConfirm" placeholder="تکرار رمز عبور">
       </div>
       <div class="form-group">
         <label>📍 عضویت در گروه (فقط یکی):</label>
@@ -397,287 +437,6 @@
           <label><input type="checkbox" id="regNews" value="news"> News</label>
         </div>
       </div>
-      <button class="btn btn-primary" id="registerBtn">ثبت نام</button>
-      <div class="auth-toggle">قبلاً ثبت نام کردید؟ <a id="goToLogin">ورود</a></div>
-    </div>
-  </div>
-
-  <div id="dashboardSection" class="hidden">
-    <div id="categoryGrid" class="card-grid"></div>
-    <div id="articlesContainer"></div>
-  </div>
-
-  <div id="usersSection" class="hidden">
-    <button class="back-btn" id="backFromUsers">← بازگشت</button>
-    <h2>مدیریت کاربران</h2>
-    <div id="userList"></div>
-  </div>
-
-  <div id="createArticleSection" class="hidden">
-    <button class="back-btn" id="backFromCreate">← بازگشت</button>
-    <h2>ساخت مقاله جدید</h2>
-    <div class="form-group">
-      <label>عنوان مقاله</label>
-      <input type="text" id="articleTitle" placeholder="تیتر مقاله...">
-    </div>
-    <div class="form-group">
-      <label>🖼️ تامبنیل (تصویر شاخص)</label>
-      <div class="file-input-group">
-        <label for="thumbInput" id="label_thumbInput">📎 انتخاب تصویر</label>
-        <input type="file" id="thumbInput" accept="image/*">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>متن مقاله</label>
-      <textarea id="articleBody" placeholder="متن مقاله را بنویسید..."></textarea>
-    </div>
-    <div class="form-group">
-      <label>📷 تصاویر داخل مقاله (۳ عدد اختیاری)</label>
-      <div class="file-input-group">
-        <label for="img1" id="label_img1">➕ تصویر ۱</label>
-        <input type="file" id="img1" accept="image/*">
+      <button class="btn btn-primary" onclick="handleRegister()" type="button">ساخت اکانت</button>
+      <div class
         
-        <label for="img2" id="label_img2">➕ تصویر ۲</label>
-        <input type="file" id="img2" accept="image/*">
-        
-        <label for="img3" id="label_img3">➕ تصویر ۳</label>
-        <input type="file" id="img3" accept="image/*">
-      </div>
-    </div>
-    <div class="form-group">
-      <label>📬 ارسال به دسته‌بندی‌ها (چندتایی):</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" class="cat-check" value="shadow"> Shadow Company</label>
-        <label><input type="checkbox" class="cat-check" value="alborz"> Alborz</label>
-        <label><input type="checkbox" class="cat-check" value="game"> Game</label>
-        <label><input type="checkbox" class="cat-check" value="news"> News</label>
-      </div>
-    </div>
-    <button class="btn btn-primary" id="sendArticleBtn" style="background:#ff8c00; color:#0b0b0b;">🚀 Send</button>
-  </div>
-</div>
-
-<script>
-  // ----------------------------------------------
-  // DATA LAYER (localStorage)
-  // ----------------------------------------------
-  function getUsers() {
-    return JSON.parse(localStorage.getItem('glitchy_users') || '[]');
-  }
-  function saveUsers(users) {
-    localStorage.setItem('glitchy_users', JSON.stringify(users));
-  }
-  function getArticles() {
-    return JSON.parse(localStorage.getItem('glitchy_articles') || '[]');
-  }
-  function saveArticles(articles) {
-    localStorage.setItem('glitchy_articles', JSON.stringify(articles));
-  }
-
-  // ----------------------------------------------
-  // HELPERS
-  // ----------------------------------------------
-  function currentUser() {
-    return JSON.parse(sessionStorage.getItem('glitchy_session') || 'null');
-  }
-  function setSession(user) {
-    sessionStorage.setItem('glitchy_session', JSON.stringify(user));
-  }
-  function clearSession() {
-    sessionStorage.removeItem('glitchy_session');
-  }
-
-  function isAdmin(user) {
-    return user && user.username === 'glitchykach' && user.password === 'glitchykachfnaf';
-  }
-
-  function readFileAsDataURL(file) {
-    return new Promise((resolve) => {
-      if (!file) {
-        resolve('');
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target.result);
-      reader.onerror = () => resolve('');
-      reader.readAsDataURL(file);
-    });
-  }
-
-  // Helper to visually update file inputs when selected
-  function syncFileInputLabel(inputId, defaultText) {
-    const input = document.getElementById(inputId);
-    const label = document.getElementById('label_' + inputId);
-    if(input && label) {
-      input.addEventListener('change', () => {
-        if(input.files && input.files[0]) {
-          label.textContent = '✅ انتخاب شد';
-          label.style.borderColor = '#ff8c00';
-        } else {
-          label.textContent = defaultText;
-          label.style.borderColor = '#3a3a3a';
-        }
-      });
-    }
-  }
-
-  // ----------------------------------------------
-  // UI RENDER FUNCTIONS
-  // ----------------------------------------------
-  function renderDashboard() {
-    const user = currentUser();
-    if (!user) return showAuth('login');
-
-    document.getElementById('authSection').classList.add('hidden');
-    document.getElementById('dashboardSection').classList.remove('hidden');
-    document.getElementById('usersSection').classList.add('hidden');
-    document.getElementById('createArticleSection').classList.add('hidden');
-
-    const dots = document.getElementById('dotsMenu');
-    const dropdown = document.getElementById('dropdownMenu');
-    
-    if (isAdmin(user)) {
-      dots.classList.remove('hidden');
-    } else {
-      dots.classList.add('hidden');
-      dropdown.classList.add('hidden');
-    }
-
-    const grid = document.getElementById('categoryGrid');
-    grid.innerHTML = '';
-    const categories = [];
-    
-    if (user.faction === 'shadow') categories.push({ key: 'shadow', label: 'Shadow Company' });
-    else if (user.faction === 'alborz') categories.push({ key: 'alborz', label: 'Alborz' });
-    
-    if (user.extras && user.extras.includes('game')) categories.push({ key: 'game', label: 'Game' });
-    if (user.extras && user.extras.includes('news')) categories.push({ key: 'news', label: 'News' });
-
-    if (categories.length === 0) {
-      grid.innerHTML = '<p style="color:#888; padding:20px;">هیچ دسته‌بندی برای شما فعال نیست.</p>';
-    } else {
-      categories.forEach(cat => {
-        const card = document.createElement('div');
-        card.className = 'cat-card';
-        card.textContent = cat.label;
-        card.dataset.cat = cat.key;
-        card.addEventListener('click', () => showArticles(cat.key));
-        grid.appendChild(card);
-      });
-    }
-
-    document.getElementById('articlesContainer').innerHTML = '';
-  }
-
-  function showArticles(categoryKey) {
-    const container = document.getElementById('articlesContainer');
-    const allArticles = getArticles();
-    const filtered = allArticles.filter(a => a.categories && a.categories.includes(categoryKey));
-
-    if (filtered.length === 0) {
-      container.innerHTML = `<div class="article-preview" style="text-align:center;color:#888;">هیچ مقاله‌ای در این بخش وجود ندارد.</div>`;
-      return;
-    }
-
-    let html = `<div class="section-title">📄 مقالات</div>`;
-    filtered.forEach(a => {
-      html += `
-        <div class="article-preview">
-          <h3>${a.title}</h3>
-          ${a.thumbnail ? `<img src="${a.thumbnail}" style="max-height:300px;width:100%;object-fit:cover;border-radius:12px;margin:10px 0;">` : ''}
-          <div style="margin:15px 0;white-space:pre-wrap;color:#bbb;line-height:1.7;font-size:1.05rem;">${a.body}</div>
-          <div style="display:flex; gap:12px; flex-wrap:wrap; margin:10px 0;">
-            ${a.images && a.images.length ? a.images.map(img => img ? `<img src="${img}" style="max-height:180px; max-width:48%; border-radius:8px; object-fit:cover;">` : '').join('') : ''}
-          </div>
-          <div class="article-meta">📅 منتشر شده در تاریخ: ${new Date(a.date).toLocaleDateString('fa-IR')}</div>
-        </div>
-      `;
-    });
-    container.innerHTML = html;
-    container.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function showAuth(form) {
-    document.getElementById('authSection').classList.remove('hidden');
-    document.getElementById('dashboardSection').classList.add('hidden');
-    document.getElementById('usersSection').classList.add('hidden');
-    document.getElementById('createArticleSection').classList.add('hidden');
-    document.getElementById('dotsMenu').classList.add('hidden');
-    document.getElementById('dropdownMenu').classList.add('hidden');
-
-    if (form === 'login') {
-      document.getElementById('loginForm').classList.remove('hidden');
-      document.getElementById('registerForm').classList.add('hidden');
-    } else {
-      document.getElementById('loginForm').classList.add('hidden');
-      document.getElementById('registerForm').classList.remove('hidden');
-    }
-  }
-
-  function renderUsers() {
-    const users = getUsers();
-    const container = document.getElementById('userList');
-    container.innerHTML = '';
-    users.forEach(u => {
-      const div = document.createElement('div');
-      div.className = 'user-item';
-      const isAdminUser = isAdmin(u);
-      div.innerHTML = `
-        <span><strong>${u.username}</strong> ${isAdminUser ? '👑' : ''} 
-        (${u.faction === 'shadow' ? 'Shadow' : 'Alborz'} ${u.extras && u.extras.length ? '| ' + u.extras.join(', ') : ''})</span>
-        ${!isAdminUser ? `<button class="btn btn-danger" data-del="${u.username}">حذف</button>` : '<span style="color:#666; font-weight:bold;">ادمین اصلی</span>'}
-      `;
-      container.appendChild(div);
-      
-      const delBtn = div.querySelector('[data-del]');
-      if (delBtn) {
-        delBtn.addEventListener('click', () => {
-          if (confirm(`آیا از حذف کاربر ${u.username} مطمئن هستید؟`)) {
-            let all = getUsers();
-            all = all.filter(x => x.username !== u.username);
-            saveUsers(all);
-            renderUsers();
-          }
-        });
-      }
-    });
-  }
-
-  // ----------------------------------------------
-  // EVENTS & INITIALIZATION
-  // ----------------------------------------------
-  document.getElementById('goToRegister').addEventListener('click', () => showAuth('register'));
-  document.getElementById('goToLogin').addEventListener('click', () => showAuth('login'));
-
-  // Dropdown Toggle
-  document.getElementById('dotsMenu').addEventListener('click', (e) => {
-    e.stopPropagation();
-    document.getElementById('dropdownMenu').classList.toggle('hidden');
-  });
-  document.addEventListener('click', () => {
-    document.getElementById('dropdownMenu').classList.add('hidden');
-  });
-
-  // Navigation Menu Actions
-  document.getElementById('menuUsers').addEventListener('click', () => {
-    document.getElementById('dashboardSection').classList.add('hidden');
-    document.getElementById('usersSection').classList.remove('hidden');
-    renderUsers();
-  });
-  document.getElementById('menuCreateArticle').addEventListener('click', () => {
-    document.getElementById('dashboardSection').classList.add('hidden');
-    document.getElementById('createArticleSection').classList.remove('hidden');
-  });
-  document.getElementById('menuLogout').addEventListener('click', () => {
-    clearSession();
-    showAuth('login');
-  });
-  
-  document.getElementById('backFromUsers').addEventListener('click', renderDashboard);
-  document.getElementById('backFromCreate').addEventListener('click', renderDashboard);
-
-  // Sync labels for file uploading visual feedback
-  syncFileInputLabel('thumbInput', '📎 انتخاب تصویر');
-  syncFileInputLabel('img1', '➕ تصویر ۱');
-  syncFileInputLabel('img2', '➕ تصویر ۲');
-  s
