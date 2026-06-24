@@ -33,7 +33,7 @@
       min-height: 500px;
     }
 
-    h1, h2, h3 {
+    h2, h3 {
       color: #f5f5f5;
       font-weight: 500;
     }
@@ -52,9 +52,8 @@
     }
 
     .glitchy-title span {
-      font-size: 0.9rem;
-      color: #888;
-      font-weight: normal;
+      font-size: 1.5rem;
+      font-weight: bold;
     }
 
     .form-group {
@@ -63,7 +62,7 @@
 
     label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       font-weight: 500;
       color: #ccc;
       font-size: 0.95rem;
@@ -71,26 +70,26 @@
 
     input[type="text"],
     input[type="password"],
-    textarea,
-    select {
+    textarea {
       width: 100%;
-      padding: 12px 16px;
+      padding: 14px 16px;
       background: #1e1e1e;
       border: 1px solid #333;
       border-radius: 12px;
       color: #fff;
       font-size: 1rem;
-      transition: border 0.2s;
+      transition: all 0.2s;
     }
 
     input:focus,
     textarea:focus {
       outline: none;
       border-color: #ff8c00;
+      box-shadow: 0 0 8px rgba(255, 140, 0, 0.2);
     }
 
     textarea {
-      min-height: 120px;
+      min-height: 140px;
       resize: vertical;
     }
 
@@ -124,14 +123,6 @@
       background: #e74c3c;
     }
 
-    .btn-secondary {
-      background: #2c2c2c;
-      color: #ccc;
-    }
-    .btn-secondary:hover {
-      background: #3a3a3a;
-    }
-
     .flex-row {
       display: flex;
       flex-wrap: wrap;
@@ -139,15 +130,9 @@
       align-items: center;
     }
 
-    .flex-col {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 20px;
       margin-top: 20px;
     }
@@ -179,11 +164,21 @@
     .auth-box {
       max-width: 450px;
       margin: 30px auto;
+      background: #1a1a1a;
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid #2a2a2a;
+    }
+
+    .auth-box h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #ff8c00;
     }
 
     .auth-box .btn {
       width: 100%;
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     .auth-toggle {
@@ -202,7 +197,7 @@
       font-weight: bold;
       cursor: pointer;
       color: #aaa;
-      padding: 0 10px;
+      padding: 0 15px;
       user-select: none;
       position: relative;
     }
@@ -213,7 +208,7 @@
 
     .dropdown-menu {
       position: absolute;
-      top: 50px;
+      top: 45px;
       left: 0;
       background: #1e1e1e;
       border: 1px solid #333;
@@ -244,16 +239,16 @@
       justify-content: space-between;
       align-items: center;
       background: #1a1a1a;
-      padding: 10px 18px;
+      padding: 12px 18px;
       border-radius: 12px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       border: 1px solid #2a2a2a;
     }
 
     .article-preview {
       background: #181818;
       border-radius: 16px;
-      padding: 20px;
+      padding: 25px;
       margin-top: 20px;
       border: 1px solid #2a2a2a;
     }
@@ -261,26 +256,34 @@
     .article-preview img {
       max-width: 100%;
       border-radius: 12px;
-      margin: 10px 0;
+      margin: 15px 0;
     }
 
     .article-meta {
       color: #ff8c00;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      margin-top: 15px;
     }
 
     .file-input-group {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
       flex-wrap: wrap;
     }
     .file-input-group label {
       background: #252525;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border-radius: 30px;
       cursor: pointer;
       border: 1px solid #3a3a3a;
+      display: inline-block;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .file-input-group label:hover {
+      background: #333;
+      border-color: #ff8c00;
     }
     .file-input-group input[type="file"] {
       display: none;
@@ -336,18 +339,17 @@
       font-size: 1.5rem;
       border-right: 4px solid #ff8c00;
       padding-right: 15px;
-      margin: 20px 0 10px;
+      margin: 25px 0 15px;
     }
   </style>
 </head>
 <body>
 
 <div class="container" id="app">
-  <!-- Header -->
   <div class="glitchy-title">
     <span>Glitchy maghale</span>
     <div class="relative" id="adminMenuWrapper">
-      <span class="admin-dots" id="dotsMenu">⋮</span>
+      <span class="admin-dots hidden" id="dotsMenu">⋮</span>
       <div class="dropdown-menu hidden" id="dropdownMenu">
         <div id="menuUsers">👥 Users</div>
         <div id="menuCreateArticle">✏️ Create new article</div>
@@ -356,7 +358,6 @@
     </div>
   </div>
 
-  <!-- ========== AUTH SECTION ========== -->
   <div id="authSection">
     <div id="loginForm" class="auth-box">
       <h2>ورود</h2>
@@ -401,20 +402,17 @@
     </div>
   </div>
 
-  <!-- ========== DASHBOARD ========== -->
   <div id="dashboardSection" class="hidden">
     <div id="categoryGrid" class="card-grid"></div>
     <div id="articlesContainer"></div>
   </div>
 
-  <!-- ========== ADMIN: USERS ========== -->
   <div id="usersSection" class="hidden">
     <button class="back-btn" id="backFromUsers">← بازگشت</button>
     <h2>مدیریت کاربران</h2>
     <div id="userList"></div>
   </div>
 
-  <!-- ========== ADMIN: CREATE ARTICLE ========== -->
   <div id="createArticleSection" class="hidden">
     <button class="back-btn" id="backFromCreate">← بازگشت</button>
     <h2>ساخت مقاله جدید</h2>
@@ -425,7 +423,8 @@
     <div class="form-group">
       <label>🖼️ تامبنیل (تصویر شاخص)</label>
       <div class="file-input-group">
-        <label>📎 انتخاب تصویر <input type="file" id="thumbInput" accept="image/*"></label>
+        <label for="thumbInput" id="label_thumbInput">📎 انتخاب تصویر</label>
+        <input type="file" id="thumbInput" accept="image/*">
       </div>
     </div>
     <div class="form-group">
@@ -433,11 +432,16 @@
       <textarea id="articleBody" placeholder="متن مقاله را بنویسید..."></textarea>
     </div>
     <div class="form-group">
-      <label>📷 تصاویر داخل مقاله (۳ عدد)</label>
+      <label>📷 تصاویر داخل مقاله (۳ عدد اختیاری)</label>
       <div class="file-input-group">
-        <label>➕ 1 <input type="file" id="img1" accept="image/*"></label>
-        <label>➕ 2 <input type="file" id="img2" accept="image/*"></label>
-        <label>➕ 3 <input type="file" id="img3" accept="image/*"></label>
+        <label for="img1" id="label_img1">➕ تصویر ۱</label>
+        <input type="file" id="img1" accept="image/*">
+        
+        <label for="img2" id="label_img2">➕ تصویر ۲</label>
+        <input type="file" id="img2" accept="image/*">
+        
+        <label for="img3" id="label_img3">➕ تصویر ۳</label>
+        <input type="file" id="img3" accept="image/*">
       </div>
     </div>
     <div class="form-group">
@@ -474,8 +478,7 @@
   // HELPERS
   // ----------------------------------------------
   function currentUser() {
-    const data = JSON.parse(sessionStorage.getItem('glitchy_session') || 'null');
-    return data;
+    return JSON.parse(sessionStorage.getItem('glitchy_session') || 'null');
   }
   function setSession(user) {
     sessionStorage.setItem('glitchy_session', JSON.stringify(user));
@@ -484,20 +487,38 @@
     sessionStorage.removeItem('glitchy_session');
   }
 
-  function getUserByUsername(username) {
-    return getUsers().find(u => u.username === username);
-  }
-
   function isAdmin(user) {
     return user && user.username === 'glitchykach' && user.password === 'glitchykachfnaf';
   }
 
   function readFileAsDataURL(file) {
     return new Promise((resolve) => {
+      if (!file) {
+        resolve('');
+        return;
+      }
       const reader = new FileReader();
       reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = () => resolve('');
       reader.readAsDataURL(file);
     });
+  }
+
+  // Helper to visually update file inputs when selected
+  function syncFileInputLabel(inputId, defaultText) {
+    const input = document.getElementById(inputId);
+    const label = document.getElementById('label_' + inputId);
+    if(input && label) {
+      input.addEventListener('change', () => {
+        if(input.files && input.files[0]) {
+          label.textContent = '✅ انتخاب شد';
+          label.style.borderColor = '#ff8c00';
+        } else {
+          label.textContent = defaultText;
+          label.style.borderColor = '#3a3a3a';
+        }
+      });
+    }
   }
 
   // ----------------------------------------------
@@ -512,30 +533,28 @@
     document.getElementById('usersSection').classList.add('hidden');
     document.getElementById('createArticleSection').classList.add('hidden');
 
-    // Admin dots
     const dots = document.getElementById('dotsMenu');
     const dropdown = document.getElementById('dropdownMenu');
+    
     if (isAdmin(user)) {
       dots.classList.remove('hidden');
-      // attach events again
     } else {
       dots.classList.add('hidden');
       dropdown.classList.add('hidden');
     }
 
-    // Build category grid based on user selections
     const grid = document.getElementById('categoryGrid');
     grid.innerHTML = '';
     const categories = [];
-    // mandatory faction
+    
     if (user.faction === 'shadow') categories.push({ key: 'shadow', label: 'Shadow Company' });
     else if (user.faction === 'alborz') categories.push({ key: 'alborz', label: 'Alborz' });
-    // extras
+    
     if (user.extras && user.extras.includes('game')) categories.push({ key: 'game', label: 'Game' });
     if (user.extras && user.extras.includes('news')) categories.push({ key: 'news', label: 'News' });
 
     if (categories.length === 0) {
-      grid.innerHTML = '<p style="color:#888;">هیچ دسته‌بندی برای شما فعال نیست.</p>';
+      grid.innerHTML = '<p style="color:#888; padding:20px;">هیچ دسته‌بندی برای شما فعال نیست.</p>';
     } else {
       categories.forEach(cat => {
         const card = document.createElement('div');
@@ -547,7 +566,6 @@
       });
     }
 
-    // Clear articles container
     document.getElementById('articlesContainer').innerHTML = '';
   }
 
@@ -566,15 +584,16 @@
       html += `
         <div class="article-preview">
           <h3>${a.title}</h3>
-          ${a.thumbnail ? `<img src="${a.thumbnail}" style="max-height:200px;object-fit:cover;border-radius:12px;">` : ''}
-          <div style="margin:10px 0;white-space:pre-wrap;color:#bbb;">${a.body}</div>
-          ${a.images && a.images.length ? a.images.map(img => `<img src="${img}" style="max-height:150px;margin:5px;border-radius:8px;">`).join('') : ''}
-          <div class="article-meta">${new Date(a.date).toLocaleDateString('fa-IR')}</div>
+          ${a.thumbnail ? `<img src="${a.thumbnail}" style="max-height:300px;width:100%;object-fit:cover;border-radius:12px;margin:10px 0;">` : ''}
+          <div style="margin:15px 0;white-space:pre-wrap;color:#bbb;line-height:1.7;font-size:1.05rem;">${a.body}</div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin:10px 0;">
+            ${a.images && a.images.length ? a.images.map(img => img ? `<img src="${img}" style="max-height:180px; max-width:48%; border-radius:8px; object-fit:cover;">` : '').join('') : ''}
+          </div>
+          <div class="article-meta">📅 منتشر شده در تاریخ: ${new Date(a.date).toLocaleDateString('fa-IR')}</div>
         </div>
       `;
     });
     container.innerHTML = html;
-    // scroll to articles
     container.scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -583,6 +602,8 @@
     document.getElementById('dashboardSection').classList.add('hidden');
     document.getElementById('usersSection').classList.add('hidden');
     document.getElementById('createArticleSection').classList.add('hidden');
+    document.getElementById('dotsMenu').classList.add('hidden');
+    document.getElementById('dropdownMenu').classList.add('hidden');
 
     if (form === 'login') {
       document.getElementById('loginForm').classList.remove('hidden');
@@ -603,14 +624,15 @@
       const isAdminUser = isAdmin(u);
       div.innerHTML = `
         <span><strong>${u.username}</strong> ${isAdminUser ? '👑' : ''} 
-        (${u.faction === 'shadow' ? 'Shadow' : 'Alborz'} ${u.extras ? u.extras.join(', ') : ''})</span>
-        ${!isAdminUser ? `<button class="btn btn-danger" data-del="${u.username}">حذف</button>` : '<span style="color:#666;">ادمین</span>'}
+        (${u.faction === 'shadow' ? 'Shadow' : 'Alborz'} ${u.extras && u.extras.length ? '| ' + u.extras.join(', ') : ''})</span>
+        ${!isAdminUser ? `<button class="btn btn-danger" data-del="${u.username}">حذف</button>` : '<span style="color:#666; font-weight:bold;">ادمین اصلی</span>'}
       `;
       container.appendChild(div);
+      
       const delBtn = div.querySelector('[data-del]');
       if (delBtn) {
         delBtn.addEventListener('click', () => {
-          if (confirm(`کاربر ${u.username} حذف شود؟`)) {
+          if (confirm(`آیا از حذف کاربر ${u.username} مطمئن هستید؟`)) {
             let all = getUsers();
             all = all.filter(x => x.username !== u.username);
             saveUsers(all);
@@ -622,77 +644,40 @@
   }
 
   // ----------------------------------------------
-  // AUTH EVENTS
+  // EVENTS & INITIALIZATION
   // ----------------------------------------------
   document.getElementById('goToRegister').addEventListener('click', () => showAuth('register'));
   document.getElementById('goToLogin').addEventListener('click', () => showAuth('login'));
 
-  document.getElementById('registerBtn').addEventListener('click', async () => {
-    const username = document.getElementById('regUser').value.trim();
-    const password = document.getElementById('regPass').value.trim();
-    const faction = document.querySelector('input[name="faction"]:checked');
-    const gameChecked = document.getElementById('regGame').checked;
-    const newsChecked = document.getElementById('regNews').checked;
+  // Dropdown Toggle
+  document.getElementById('dotsMenu').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('dropdownMenu').classList.toggle('hidden');
+  });
+  document.addEventListener('click', () => {
+    document.getElementById('dropdownMenu').classList.add('hidden');
+  });
 
-    if (!username || !password) return alert('نام کاربری و رمز عبور الزامی است');
-    if (!faction) return alert('لطفاً یکی از دو گروه (Shadow یا Alborz) را انتخاب کنید');
-
-    const users = getUsers();
-    if (users.find(u => u.username === username)) return alert('این نام کاربری قبلاً ثبت شده است');
-
-    const extras = [];
-    if (gameChecked) extras.push('game');
-    if (newsChecked) extras.push('news');
-
-    const newUser = {
-      username,
-      password,
-      faction: faction.value,
-      extras,
-      isAdmin: false
-    };
-    users.push(newUser);
-    saveUsers(users);
-    alert('ثبت نام با موفقیت انجام شد! حالا وارد شوید.');
+  // Navigation Menu Actions
+  document.getElementById('menuUsers').addEventListener('click', () => {
+    document.getElementById('dashboardSection').classList.add('hidden');
+    document.getElementById('usersSection').classList.remove('hidden');
+    renderUsers();
+  });
+  document.getElementById('menuCreateArticle').addEventListener('click', () => {
+    document.getElementById('dashboardSection').classList.add('hidden');
+    document.getElementById('createArticleSection').classList.remove('hidden');
+  });
+  document.getElementById('menuLogout').addEventListener('click', () => {
+    clearSession();
     showAuth('login');
   });
+  
+  document.getElementById('backFromUsers').addEventListener('click', renderDashboard);
+  document.getElementById('backFromCreate').addEventListener('click', renderDashboard);
 
-  document.getElementById('loginBtn').addEventListener('click', () => {
-    const username = document.getElementById('loginUser').value.trim();
-    const password = document.getElementById('loginPass').value.trim();
-
-    if (!username || !password) return alert('نام کاربری و رمز عبور را وارد کنید');
-
-    const users = getUsers();
-    let user = users.find(u => u.username === username && u.password === password);
-
-    // Admin hard check
-    if (username === 'glitchykach' && password === 'glitchykachfnaf') {
-      // ensure admin exists in db
-      let admin = users.find(u => u.username === 'glitchykach');
-      if (!admin) {
-        admin = {
-          username: 'glitchykach',
-          password: 'glitchykachfnaf',
-          faction: 'shadow',
-          extras: ['game', 'news'],
-          isAdmin: true
-        };
-        users.push(admin);
-        saveUsers(users);
-      } else {
-        admin.isAdmin = true;
-        saveUsers(users);
-      }
-      user = admin;
-    }
-
-    if (!user) return alert('نام کاربری یا رمز عبور اشتباه است');
-
-    setSession(user);
-    renderDashboard();
-  });
-
-  // ----------------------------------------------
-  // DASHBOARD / ADMIN MENU
-  // ----------------------------------------
+  // Sync labels for file uploading visual feedback
+  syncFileInputLabel('thumbInput', '📎 انتخاب تصویر');
+  syncFileInputLabel('img1', '➕ تصویر ۱');
+  syncFileInputLabel('img2', '➕ تصویر ۲');
+  s
