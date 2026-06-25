@@ -3,85 +3,98 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SHADOW COMPANY - Secure Gap</title>
+    <title>SHADOW SYSTEM | SECURE</title>
     <style>
-        :root {
-            --bg-primary: #0d0d0f; --bg-secondary: #18181c; --accent: #6c5ce7;
-            --text-primary: #f0f0f4; --border-color: #2e2e3a;
-        }
-        *, * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); height: 100vh; overflow: hidden; }
-
-        /* صفحه لاگین با پسورد */
-        #loginPage { display: flex; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle, #1a1a2e 0%, #0d0d0f 100%); }
-        .login-card { background: var(--bg-secondary); padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--border-color); text-align: center; }
-        .login-card input { width: 100%; padding: 12px; margin: 10px 0; background: #0d0d0f; border: 1px solid var(--border-color); color: white; border-radius: 8px; }
+        :root { --bg: #0d0d0f; --sec: #18181c; --acc: #6c5ce7; --txt: #f0f0f4; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--txt); margin: 0; height: 100vh; display: flex; }
         
-        #app { display: none; height: 100vh; display: flex; }
-        #app.active { display: flex; }
-
-        /* ریسپانسیو بودن موبایل */
-        .sidebar { width: 300px; background: var(--bg-secondary); border-left: 1px solid var(--border-color); transition: 0.3s; }
-        @media (max-width: 768px) {
-            .sidebar { position: absolute; left: -300px; z-index: 100; height: 100%; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
-            .sidebar.active { left: 0; }
-        }
-
-        .chat-area { flex: 1; display: flex; flex-direction: column; }
-        .message-bubble { padding: 12px 18px; border-radius: 18px; background: #22222a; margin: 5px; max-width: 80%; }
-        .sent .message-bubble { background: var(--accent); align-self: flex-end; }
+        /* استایل‌های پایه */
+        #loginPage { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 1000; display: flex; justify-content: center; align-items: center; }
+        .card { background: var(--sec); padding: 30px; border-radius: 15px; width: 320px; border: 1px solid #333; }
+        
+        #app { display: none; width: 100%; height: 100%; }
+        .sidebar { width: 250px; background: var(--sec); border-left: 1px solid #333; display: flex; flex-direction: column; }
+        .chat-main { flex: 1; display: flex; flex-direction: column; }
+        
+        input { width: 100%; padding: 10px; margin: 8px 0; background: #000; border: 1px solid #444; color: white; border-radius: 5px; }
+        button { width: 100%; padding: 10px; background: var(--acc); border: none; color: white; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div id="loginPage">
-        <div class="login-card">
-            <h2 style="color: var(--accent); margin-bottom: 20px;">ورود امن SHADOW</h2>
-            <input type="text" id="username" placeholder="نام کاربری">
-            <input type="password" id="password" placeholder="رمز عبور">
-            <button id="loginBtn" style="width: 100%; padding: 12px; background: var(--accent); border: none; color: white; border-radius: 8px; cursor: pointer;">ورود</button>
+        <div class="card">
+            <h3>SHADOW LOGIN</h3>
+            <input type="text" id="inUser" placeholder="نام کاربری">
+            <input type="password" id="inPass" placeholder="رمز عبور">
+            <button onclick="handleLogin()">ورود / ثبت‌نام</button>
         </div>
     </div>
 
     <div id="app">
-        <div class="sidebar" id="sidebar">
-            <div style="padding: 20px; font-weight: bold;">لیست کاربران</div>
-            <div id="userList" style="padding: 10px;"></div>
+        <div class="sidebar">
+            <div style="padding: 15px;">
+                <button onclick="addNewUser()">+ کاربر جدید</button>
+            </div>
+            <div id="userList"></div>
         </div>
-        <div class="chat-area">
-            <div id="chatMessages" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 20px;"></div>
-            <div style="padding: 20px; display: flex; gap: 10px;">
-                <input type="text" id="messageInput" style="flex: 1; padding: 12px; background: #1a1a20; border: 1px solid var(--border-color); color: white; border-radius: 8px;">
-                <button id="sendBtn" style="padding: 10px 20px; background: var(--accent); border: none; color: white; border-radius: 8px;">ارسال</button>
+        <div class="chat-main">
+            <div id="chatMessages" style="flex: 1; padding: 20px; overflow-y: auto;"></div>
+            <div style="padding: 20px; display: flex;">
+                <input type="text" id="msgInput" placeholder="پیام...">
+                <button onclick="sendMessage()" style="width: auto;">ارسال</button>
             </div>
         </div>
     </div>
 
     <script>
-        // لاگین با پسورد
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
-            if(user && pass) {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('app').classList.add('active');
-            } else {
-                alert("نام کاربری و رمز عبور را وارد کنید!");
-            }
-        });
+        // دیتابیس محلی (ذخیره کاربران و پسوردها)
+        let users = JSON.parse(localStorage.getItem('users')) || { "admin": "123" };
 
-        // ارسال پیام و مدیریت ریسپانسیو
-        document.getElementById('sendBtn').addEventListener('click', () => {
-            const msg = document.getElementById('messageInput').value;
-            if(msg) {
-                const div = document.createElement('div');
-                div.className = 'message-group sent';
-                div.innerHTML = `<div class="message-bubble">${msg}</div>`;
-                document.getElementById('chatMessages').appendChild(div);
-                document.getElementById('messageInput').value = '';
+        function handleLogin() {
+            const u = document.getElementById('inUser').value;
+            const p = document.getElementById('inPass').value;
+            
+            if(users[u]) {
+                if(users[u] === p) {
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('app').style.display = 'flex';
+                    renderUsers();
+                } else { alert("رمز اشتباه است!"); }
+            } else {
+                if(confirm("کاربر موجود نیست. ثبت‌نام می‌کنید؟")) {
+                    users[u] = p;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    alert("ثبت شد! حالا وارد شوید.");
+                }
             }
-        });
+        }
+
+        function addNewUser() {
+            const u = prompt("نام کاربری جدید:");
+            const p = prompt("رمز عبور:");
+            if(u && p) {
+                users[u] = p;
+                localStorage.setItem('users', JSON.stringify(users));
+                renderUsers();
+            }
+        }
+
+        function renderUsers() {
+            const list = document.getElementById('userList');
+            list.innerHTML = "";
+            Object.keys(users).forEach(u => {
+                list.innerHTML += `<div style="padding: 10px; cursor: pointer;" onclick="alert('چت با ${u}')">${u}</div>`;
+            });
+        }
+
+        function sendMessage() {
+            const m = document.getElementById('msgInput').value;
+            if(m) {
+                document.getElementById('chatMessages').innerHTML += `<p>${m}</p>`;
+                document.getElementById('msgInput').value = "";
+            }
+        }
     </script>
 </body>
 </html>
-
